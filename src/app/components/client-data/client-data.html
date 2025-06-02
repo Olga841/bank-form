@@ -1,0 +1,113 @@
+<div *ngIf="form" [formGroup]="form">
+  <!-- Поле "Имя" -->
+  <div class="form-group">
+    <label for="firstName">Имя *</label>
+    <input id="firstName" type="text" formControlName="firstName" class="form-control">
+    <div *ngIf="form.get('firstName')?.touched && form.get('firstName')?.errors" class="text-danger">
+      <div *ngIf="form.get('firstName')?.errors?.['required']">
+        Имя обязательно.
+      </div>
+      <div *ngIf="form.get('firstName')?.errors?.['minlength']">
+        Минимум 2 символа.
+      </div>
+      <div *ngIf="form.get('firstName')?.errors?.['maxlength']">
+        Максимум 50 символов.
+      </div>
+    </div>
+  </div>
+
+  <!-- Поле "Фамилия" -->
+  <div class="form-group">
+    <label for="lastName">Фамилия *</label>
+    <input id="lastName" type="text" formControlName="lastName" class="form-control">
+    <div *ngIf="form.get('lastName')?.touched && form.get('lastName')?.errors" class="text-danger">
+      <div *ngIf="form.get('lastName')?.errors?.['required']">
+        Фамилия обязательна.
+      </div>
+      <div *ngIf="form.get('lastName')?.errors?.['minlength']">
+        Минимум 2 символа.
+      </div>
+      <div *ngIf="form.get('lastName')?.errors?.['maxlength']">
+        Максимум 50 символов.
+      </div>
+    </div>
+  </div>
+
+  <!-- Поле "Отчество" (необязательное) -->
+  <div class="form-group">
+    <label for="middleName">Отчество (необязательно)</label>
+    <input id="middleName" type="text" formControlName="middleName" class="form-control">
+    <div *ngIf="form.get('middleName')?.touched && form.get('middleName')?.errors" class="text-danger">
+      <div *ngIf="form.get('middleName')?.errors?.['minlength']">
+        Минимум 2 символа.
+      </div>
+      <div *ngIf="form.get('middleName')?.errors?.['maxlength']">
+        Максимум 50 символов.
+      </div>
+    </div>
+  </div>
+
+  <!-- Поле "Пол" - выпадающий список -->
+  <div class="form-group">
+    <label for="gender">Пол *</label>
+    <select id="gender" formControlName="gender" class="form-control">
+      <option value="">Выберите пол</option>
+      <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
+    </select>
+    <div *ngIf="form.get('gender')?.touched && form.get('gender')?.errors" class="text-danger">
+      <div *ngIf="form.get('gender')?.errors?.['required']">
+        Пол обязателен.
+      </div>
+    </div>
+  </div>
+  <!-- Дата рождения -->
+  <div class="form-group">
+    <label for="dateOfBirth">Дата рождения</label>
+    <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="form-control">
+    <div *ngIf="form.get('dateOfBirth')?.touched && form.get('dateOfBirth')?.errors" class="text-danger">
+      <div *ngIf="form.get('dateOfBirth')?.errors?.['required']">
+        Дата рождения обязательна.
+      </div>
+      <div *ngIf="form.get('dateOfBirth')?.errors?.['minimumAge']">
+        Возраст должен быть не менее 
+        {{ form.get('dateOfBirth')?.errors?.['minimumAge'].requiredAge }} лет.
+        Ваш возраст: {{ form.get('dateOfBirth')?.errors?.['minimumAge'].actualAge }}.
+      </div>
+      <div *ngIf="form.get('dateOfBirth')?.errors?.['invalidDate']">
+        Неверная дата рождения.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Телефон -->
+  <div class="form-group">
+    <label for="phone">Телефон</label>
+    <input id="phone" type="tel" formControlName="phone" class="form-control">
+    <div *ngIf="form.get('phone')?.touched && form.get('phone')?.errors" class="text-danger">
+      <div *ngIf="form.get('phone')?.errors?.['required']">
+        Телефон обязателен.
+      </div>
+      <div *ngIf="form.get('phone')?.errors?.['phoneFormat']">
+        Неверный формат номера телефона.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Паспорт -->
+  <div class="form-group">
+    <label for="passport">Паспорт (серия и номер)</label>
+    <input id="passport" type="text" formControlName="passport" class="form-control">
+    <div *ngIf="form.get('passport')?.touched && form.get('passport')?.errors" class="text-danger">
+      <div *ngIf="form.get('passport')?.errors?.['required']">
+        Паспорт обязателен.
+      </div>
+      <div *ngIf="form.get('passport')?.errors?.['passportInvalid']">
+        Неверный формат паспорта (требуется 4 цифры и 6 цифр, например: "1234 567890").
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+

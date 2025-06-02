@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import { BankFormComponent } from './app/bank-form/bank-form';
+import 'zone.js';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(BankFormComponent).catch(err => console.error(err));
+

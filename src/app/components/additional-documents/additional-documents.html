@@ -1,0 +1,40 @@
+<div class="card mb-3">
+    <div class="card-header">
+      <h3>Дополнительные документы</h3>
+    </div>
+    <div class="card-body">
+      <!-- Перебор всех документов из FormArray -->
+      <div *ngFor="let doc of documentGroups; let i = index" [formGroup]="doc">
+        <!-- Тип документа -->
+        <div class="form-group">
+          <label>Тип документа</label>
+          <input type="text" formControlName="documentType" class="form-control" placeholder="Введите тип документа">
+          <div *ngIf="doc.get('documentType')?.touched && doc.get('documentType')?.invalid" class="text-danger">
+            Обязательное для заполнения.
+          </div>
+        </div>
+        <!-- Файл документа -->
+        <div class="form-group">
+          <label>Файл документа</label>
+          <input type="file" formControlName="documentFile" class="form-control">
+          <div *ngIf="doc.get('documentFile')?.touched && doc.get('documentFile')?.invalid" class="text-danger">
+            Файл обязателен.
+          </div>
+        </div>
+        <!-- Описание -->
+        <div class="form-group">
+          <label>Описание</label>
+          <textarea formControlName="documentDescription" class="form-control" placeholder="Дополнительное описание"></textarea>
+        </div>
+        <!-- Кнопка удаления. Отображаем, если документов больше одного -->
+        <button type="button" class="btn btn-danger mt-2" (click)="removeDocument(i)" *ngIf="form.controls.length > 1">
+          Удалить документ
+        </button>
+      </div>
+      <!-- Кнопка для добавления нового документа -->
+      <button type="button" class="btn btn-secondary" (click)="addDocument()">
+        Добавить документ
+      </button>
+    </div>
+  </div>
+  

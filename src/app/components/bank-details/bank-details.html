@@ -1,0 +1,90 @@
+<ng-container *ngIf="form">
+  <div class="card mb-3" [formGroup]="form">
+    <div class="card-header">
+      <h3>Банковские реквизиты</h3>
+    </div>
+    <div [formGroup]="form" class="card-body">
+      <!-- Название банка -->
+      <div class="form-group">
+        <label for="bankName">Название банка</label>
+        <input
+          id="bankName"
+          type="text"
+          formControlName="bankName"
+          class="form-control"
+        />
+        <div
+          *ngIf="form.get('bankName')?.touched && form.get('bankName')?.invalid"
+          class="text-danger"
+        >
+          Обязательное поле.
+        </div>
+      </div>
+
+      <!-- Номер счета -->
+      <!-- bank-details.component.html (фрагмент для поля "accountNumber") -->
+      <div class="form-group">
+        <label for="accountNumber">Номер счета</label>
+        <input
+          id="accountNumber"
+          type="text"
+          formControlName="accountNumber"
+          class="form-control"
+        />
+        <div
+          *ngIf="form.get('accountNumber')?.touched && form.get('accountNumber')?.errors"
+          class="text-danger"
+        >
+          <div *ngIf="form.get('accountNumber')?.errors?.['required']">
+            Номер счета обязателен.
+          </div>
+          <div *ngIf="form.get('accountNumber')?.errors?.['pattern']">
+            Номер счета должен содержать только цифры.
+          </div>
+          <div *ngIf="form.get('accountNumber')?.errors?.['bankDetailLength']">
+            Длина номера счета должна быть от {{
+            form.get('accountNumber')?.errors?.['bankDetailLength'].minRequired
+            }} до {{
+            form.get('accountNumber')?.errors?.['bankDetailLength'].maxRequired
+            }} символов. Фактическая длина: {{
+            form.get('accountNumber')?.errors?.['bankDetailLength'].actual }}.
+          </div>
+        </div>
+      </div>
+
+      <!-- BIC -->
+      <div class="form-group">
+        <label for="bic">BIC</label>
+        <input
+          id="bic"
+          type="text"
+          formControlName="bic"
+          class="form-control"
+        />
+        <div
+          *ngIf="form.get('bic')?.touched && form.get('bic')?.invalid"
+          class="text-danger"
+        >
+          BIC должен состоять из 8 или 11 символов (буквы и цифры).
+        </div>
+      </div>
+
+      <!-- IBAN -->
+      <div class="form-group">
+        <label for="iban">IBAN</label>
+        <input
+          id="iban"
+          type="text"
+          formControlName="iban"
+          class="form-control"
+        />
+        <div
+          *ngIf="form.get('iban')?.touched && form.get('iban')?.invalid"
+          class="text-danger"
+        >
+          IBAN должен соответствовать международному формату.
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

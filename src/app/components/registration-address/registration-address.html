@@ -1,0 +1,67 @@
+<div class="card mb-3" [formGroup]="form">
+    <div class="card-header">
+      <h3>Адрес регистрации</h3>
+    </div>
+    <div class="card-body">
+      <!-- Страна -->
+      <div class="form-group">
+        <label>Страна</label>
+        <select formControlName="country" class="form-control">
+          <option value="">Выберите страну</option>
+          <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+        </select>
+        <div *ngIf="form.get('country')?.touched && form.get('country')?.invalid" class="text-danger">
+          Поле обязательно.
+        </div>
+      </div>
+      <!-- Регион -->
+      <div class="form-group">
+        <label>Регион</label>
+        <input type="text" formControlName="region" class="form-control" />
+        <div *ngIf="form.get('region')?.touched && form.get('region')?.invalid" class="text-danger">
+          Регион обязателен, минимум 3 символа.
+        </div>
+      </div>
+      <!-- Город -->
+      <div class="form-group">
+        <label>Город</label>
+        <input type="text" formControlName="city" class="form-control" />
+        <div *ngIf="form.get('city')?.touched && form.get('city')?.invalid" class="text-danger">
+          Город обязателен, минимум 3 символа.
+        </div>
+      </div>
+      <!-- Улица -->
+      <div class="form-group">
+        <label>Улица</label>
+        <input type="text" formControlName="street" class="form-control" />
+        <div *ngIf="form.get('street')?.touched && form.get('street')?.invalid" class="text-danger">
+          Улица обязательна, минимум 3 символа.
+        </div>
+      </div>
+      <!-- Дом -->
+      <div class="form-group">
+        <label>Дом</label>
+        <input type="text" formControlName="house" class="form-control" />
+        <div *ngIf="form.get('house')?.touched && form.get('house')?.invalid" class="text-danger">
+          Дом обязателен.
+        </div>
+      </div>
+      <!-- Квартира -->
+      <div class="form-group">
+        <label>Квартира</label>
+        <input type="text" formControlName="apartment" class="form-control" />
+        <div *ngIf="form.get('apartment')?.touched && form.get('apartment')?.invalid" class="text-danger">
+          Допустимы только цифры.
+        </div>
+      </div>
+      <!-- Индекс -->
+      <div class="form-group">
+        <label>Индекс</label>
+        <input type="text" formControlName="postalCode" class="form-control" />
+        <div *ngIf="form.get('postalCode')?.touched && form.get('postalCode')?.invalid" class="text-danger">
+          Индекс должен состоять из 6 цифр.
+        </div>
+      </div>
+    </div>
+  </div>
+  
