@@ -43,12 +43,11 @@ export class BankDetailsComponent implements OnInit {
         Validators.pattern(/^[A-Z]{6}[A-Z0-9]{2}(?:[A-Z0-9]{3})?$/)
       ]));
     }
-    // IBAN – обязательное поле, для простоты проверки может использоваться базовый pattern
+    // IBAN – обязательное поле 
     if (!this.form.contains('iban')) {
       this.form.addControl('iban', new FormControl('', [
         Validators.required,
-        Validators.pattern(/^\d+$/),
-        CustomValidators.bankDetailLength(10, 20)
+        CustomValidators.ibanValidator()
       ]));
     }
   }

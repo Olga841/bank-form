@@ -96,13 +96,13 @@
           <input
             matInput
             formControlName="passport"
-            placeholder="1234 567890"
+            placeholder="AB 567890"
           />
           <mat-error *ngIf="form.get('passport')?.hasError('required')">
             Паспорт обязателен.
           </mat-error>
           <mat-error *ngIf="form.get('passport')?.hasError('passportInvalid')">
-            Неверный формат паспорта (требуется 4 цифры и 6 цифр).
+            Неверный формат паспорта (требуется 2 буквы и 6 цифр).
           </mat-error>
         </mat-form-field>
       </div>

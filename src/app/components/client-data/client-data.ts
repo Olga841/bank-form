@@ -98,13 +98,10 @@ export class ClientDataComponent implements OnInit {
     }
     // Паспорт – обязательно, с кастомным валидатором корректности серии и номера
     if (!this.form.contains('passport')) {
-      this.form.addControl(
-        'passport',
-        new FormControl('', [
-          Validators.required,
-          CustomValidators.passportValidator()
-        ])
-      );
+      this.form.addControl('passport', new FormControl('', [
+        Validators.required,
+        CustomValidators.passportValidator()
+      ]));
     }
   }
 }

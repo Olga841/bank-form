@@ -39,31 +39,28 @@ export class CustomValidators {
   // Валидатор для проверки корректности серии и номера паспорта.  
   static passportValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (!value) {
-        return null;
-      }
-      const passportRegex = /^\d{2}\s?\d{6}$/;
-      return passportRegex.test(value) ? null : { passportInvalid: true };
+      if (!control.value) return null; // Если значение отсутствует, допустим, RequiredValidator обработает это.
+      
+      // Обрезаем пробелы по краям
+      const value = control.value.trim();
+      
+      // Регулярное выражение: 2 латинские буквы (любого регистра), затем 6 цифр
+      const pattern = /^[A-Za-z]{2}\d{6}$/;
+      
+      return pattern.test(value) ? null : { passportInvalid: true };
     };
   }
 
   // Валидатор для проверки длины банковских реквизитов (например, номер счета).  
   // Он проверяет, что значение (приведённое к строке) имеет длину между min и max.
-  static bankDetailLength(min: number, max: number): ValidatorFn {
+  static ibanValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (value === null || value === undefined) {
-        return null;
-      }
-      const length = value.toString().trim().length;
-      if (length < min) {
-        return { bankDetailLength: { minRequired: min, actual: length } };
-      }
-      if (length > max) {
-        return { bankDetailLength: { maxRequired: max, actual: length } };
-      }
-      return null;
+      if (!control.value) return null; // Если значение отсутствует – обязателен другой валидатор (Validators.required)
+      
+      const value = control.value.trim().toUpperCase();
+      const pattern = /^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/;
+      
+      return pattern.test(value) ? null : { ibanInvalid: true };
     };
   }
 }
