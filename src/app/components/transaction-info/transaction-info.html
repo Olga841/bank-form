@@ -1,44 +1,33 @@
-<div class="card mb-3" [formGroup]="form">
-    <div class="card-header">
-      <h3>Информация о транзакции</h3>
-    </div>
-    <div class="card-body">
-      <!-- Сумма транзакции -->
-      <div class="form-group">
-        <label for="transactionAmount">Сумма транзакции</label>
-        <input id="transactionAmount" type="number" formControlName="transactionAmount" class="form-control">
-        <div *ngIf="form.get('transactionAmount')?.touched && form.get('transactionAmount')?.invalid" class="text-danger">
-          Введите положительное значение.
-        </div>
-      </div>
-  
-      <!-- Дата транзакции -->
-      <div class="form-group">
-        <label for="transactionDate">Дата транзакции</label>
-        <input id="transactionDate" type="date" formControlName="transactionDate" class="form-control">
-        <div *ngIf="form.get('transactionDate')?.touched && form.get('transactionDate')?.invalid" class="text-danger">
-          Дата обязательна.
-        </div>
-      </div>
-  
-      <!-- Тип транзакции -->
-      <div class="form-group">
-        <label for="transactionType">Тип транзакции</label>
-        <select id="transactionType" formControlName="transactionType" class="form-control">
-          <option value="">Выберите тип транзакции</option>
-          <option value="income">Приход</option>
-          <option value="expense">Расход</option>
-        </select>
-        <div *ngIf="form.get('transactionType')?.touched && form.get('transactionType')?.invalid" class="text-danger">
-          Выберите тип транзакции.
-        </div>
-      </div>
-  
-      <!-- Дополнительное описание -->
-      <div class="form-group">
-        <label for="description">Описание</label>
-        <textarea id="description" formControlName="description" class="form-control"></textarea>
-      </div>
-    </div>
+<mat-card>
+  <div class="header-container">
+    <mat-icon class="header-icon">payment</mat-icon>
+    <mat-card-title class="component-title">Информация о транзакции</mat-card-title>
   </div>
-  
+  <mat-card-content>
+    <form [formGroup]="form">
+      <!-- Сумма транзакции -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Сумма транзакции *</mat-label>
+        <input matInput type="number" formControlName="amount" placeholder="Введите сумму">
+        <mat-error *ngIf="form.get('amount')?.hasError('required')">Обязательное поле.</mat-error>
+        <mat-error *ngIf="form.get('amount')?.hasError('pattern')">Введите корректную сумму.</mat-error>
+      </mat-form-field>
+      
+      <!-- Дата транзакции -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Дата транзакции *</mat-label>
+        <input matInput type="date" formControlName="transactionDate">
+        <mat-error *ngIf="form.get('transactionDate')?.hasError('required')">Обязательное поле.</mat-error>
+      </mat-form-field>
+      
+      <!-- Назначение платежа -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Назначение платежа *</mat-label>
+        <input matInput formControlName="purpose" placeholder="Введите назначение платежа">
+        <mat-error *ngIf="form.get('purpose')?.hasError('required')">Обязательное поле.</mat-error>
+        <mat-error *ngIf="form.get('purpose')?.hasError('minlength')">Минимум 5 символов.</mat-error>
+        <mat-error *ngIf="form.get('purpose')?.hasError('maxlength')">Максимум 200 символов.</mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>

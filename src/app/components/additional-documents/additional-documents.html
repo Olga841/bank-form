@@ -1,40 +1,36 @@
-<div class="card mb-3">
-    <div class="card-header">
-      <h3>Дополнительные документы</h3>
-    </div>
-    <div class="card-body">
-      <!-- Перебор всех документов из FormArray -->
-      <div *ngFor="let doc of documentGroups; let i = index" [formGroup]="doc">
-        <!-- Тип документа -->
-        <div class="form-group">
-          <label>Тип документа</label>
-          <input type="text" formControlName="documentType" class="form-control" placeholder="Введите тип документа">
-          <div *ngIf="doc.get('documentType')?.touched && doc.get('documentType')?.invalid" class="text-danger">
-            Обязательное для заполнения.
-          </div>
-        </div>
-        <!-- Файл документа -->
-        <div class="form-group">
-          <label>Файл документа</label>
-          <input type="file" formControlName="documentFile" class="form-control">
-          <div *ngIf="doc.get('documentFile')?.touched && doc.get('documentFile')?.invalid" class="text-danger">
-            Файл обязателен.
-          </div>
-        </div>
-        <!-- Описание -->
-        <div class="form-group">
-          <label>Описание</label>
-          <textarea formControlName="documentDescription" class="form-control" placeholder="Дополнительное описание"></textarea>
-        </div>
-        <!-- Кнопка удаления. Отображаем, если документов больше одного -->
-        <button type="button" class="btn btn-danger mt-2" (click)="removeDocument(i)" *ngIf="form.controls.length > 1">
-          Удалить документ
-        </button>
-      </div>
-      <!-- Кнопка для добавления нового документа -->
-      <button type="button" class="btn btn-secondary" (click)="addDocument()">
-        Добавить документ
-      </button>
-    </div>
+<mat-card>
+  <div class="header-container">
+    <mat-icon class="header-icon">description</mat-icon>
+    <mat-card-title class="component-title">Дополнительные документы</mat-card-title>
   </div>
-  
+  <mat-card-content>
+    <div *ngFor="let doc of form.controls; let i = index">
+      <mat-card class="document-card">
+        <mat-card-content>
+          <form [formGroup]="doc">
+            <!-- Название документа -->
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Название документа *</mat-label>
+              <input matInput formControlName="docName" placeholder="Введите название документа">
+              <mat-error *ngIf="doc.get('docName')?.hasError('required')">Обязательное поле.</mat-error>
+              <mat-error *ngIf="doc.get('docName')?.hasError('minlength')">Минимум 2 символа.</mat-error>
+            </mat-form-field>
+            <!-- Номер документа -->
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Номер документа *</mat-label>
+              <input matInput formControlName="docNumber" placeholder="Введите номер документа">
+              <mat-error *ngIf="doc.get('docNumber')?.hasError('required')">Обязательное поле.</mat-error>
+              <mat-error *ngIf="doc.get('docNumber')?.hasError('minlength')">Минимум 2 символа.</mat-error>
+            </mat-form-field>
+          </form>
+          <button mat-icon-button color="warn" (click)="removeDocument(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button mat-raised-button color="primary" (click)="addDocument()">
+      Добавить документ
+    </button>
+  </mat-card-content>
+</mat-card>

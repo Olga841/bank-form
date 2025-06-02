@@ -10,6 +10,8 @@ import { BankDetailsComponent } from '../components/bank-details/bank-details';
 import { TransactionInfoComponent } from '../components/transaction-info/transaction-info';
 import { AdditionalDocumentsComponent } from '../components/additional-documents/additional-documents';
 
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   standalone: true,
   selector: 'app-bank-form',
@@ -22,7 +24,8 @@ import { AdditionalDocumentsComponent } from '../components/additional-documents
     RegistrationAddressComponent,
     BankDetailsComponent,
     TransactionInfoComponent,
-    AdditionalDocumentsComponent
+    AdditionalDocumentsComponent,
+    MatButtonModule
   ]
 })
 export class BankFormComponent implements OnInit {

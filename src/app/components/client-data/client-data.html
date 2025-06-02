@@ -1,113 +1,111 @@
-<div *ngIf="form" [formGroup]="form">
-  <!-- Поле "Имя" -->
-  <div class="form-group">
-    <label for="firstName">Имя *</label>
-    <input id="firstName" type="text" formControlName="firstName" class="form-control">
-    <div *ngIf="form.get('firstName')?.touched && form.get('firstName')?.errors" class="text-danger">
-      <div *ngIf="form.get('firstName')?.errors?.['required']">
-        Имя обязательно.
-      </div>
-      <div *ngIf="form.get('firstName')?.errors?.['minlength']">
-        Минимум 2 символа.
-      </div>
-      <div *ngIf="form.get('firstName')?.errors?.['maxlength']">
-        Максимум 50 символов.
-      </div>
-    </div>
+<mat-card>
+  <div class="header-container">
+    <mat-icon class="header-icon">person</mat-icon>
+    <mat-card-title class="client-data-title">Данные клиента</mat-card-title>
   </div>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <div class="form-container">
+        <!-- Имя -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Имя *</mat-label>
+          <input matInput formControlName="firstName" />
+          <mat-error *ngIf="form.get('firstName')?.hasError('required')">
+            Имя обязательно.
+          </mat-error>
+          <mat-error *ngIf="form.get('firstName')?.hasError('minlength')">
+            Минимум 2 символа.
+          </mat-error>
+          <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
+            Максимум 50 символов.
+          </mat-error>
+        </mat-form-field>
 
-  <!-- Поле "Фамилия" -->
-  <div class="form-group">
-    <label for="lastName">Фамилия *</label>
-    <input id="lastName" type="text" formControlName="lastName" class="form-control">
-    <div *ngIf="form.get('lastName')?.touched && form.get('lastName')?.errors" class="text-danger">
-      <div *ngIf="form.get('lastName')?.errors?.['required']">
-        Фамилия обязательна.
-      </div>
-      <div *ngIf="form.get('lastName')?.errors?.['minlength']">
-        Минимум 2 символа.
-      </div>
-      <div *ngIf="form.get('lastName')?.errors?.['maxlength']">
-        Максимум 50 символов.
-      </div>
-    </div>
-  </div>
+        <!-- Фамилия -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Фамилия *</mat-label>
+          <input matInput formControlName="lastName" />
+          <mat-error *ngIf="form.get('lastName')?.hasError('required')">
+            Фамилия обязательна.
+          </mat-error>
+          <mat-error *ngIf="form.get('lastName')?.hasError('minlength')">
+            Минимум 2 символа.
+          </mat-error>
+          <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
+            Максимум 50 символов.
+          </mat-error>
+        </mat-form-field>
 
-  <!-- Поле "Отчество" (необязательное) -->
-  <div class="form-group">
-    <label for="middleName">Отчество (необязательно)</label>
-    <input id="middleName" type="text" formControlName="middleName" class="form-control">
-    <div *ngIf="form.get('middleName')?.touched && form.get('middleName')?.errors" class="text-danger">
-      <div *ngIf="form.get('middleName')?.errors?.['minlength']">
-        Минимум 2 символа.
-      </div>
-      <div *ngIf="form.get('middleName')?.errors?.['maxlength']">
-        Максимум 50 символов.
-      </div>
-    </div>
-  </div>
+        <!-- Отчество -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Отчество</mat-label>
+          <input matInput formControlName="middleName" />
+          <mat-error *ngIf="form.get('middleName')?.hasError('minlength')">
+            Минимум 2 символа.
+          </mat-error>
+          <mat-error *ngIf="form.get('middleName')?.hasError('maxlength')">
+            Максимум 50 символов.
+          </mat-error>
+        </mat-form-field>
 
-  <!-- Поле "Пол" - выпадающий список -->
-  <div class="form-group">
-    <label for="gender">Пол *</label>
-    <select id="gender" formControlName="gender" class="form-control">
-      <option value="">Выберите пол</option>
-      <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
-    </select>
-    <div *ngIf="form.get('gender')?.touched && form.get('gender')?.errors" class="text-danger">
-      <div *ngIf="form.get('gender')?.errors?.['required']">
-        Пол обязателен.
-      </div>
-    </div>
-  </div>
-  <!-- Дата рождения -->
-  <div class="form-group">
-    <label for="dateOfBirth">Дата рождения</label>
-    <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="form-control">
-    <div *ngIf="form.get('dateOfBirth')?.touched && form.get('dateOfBirth')?.errors" class="text-danger">
-      <div *ngIf="form.get('dateOfBirth')?.errors?.['required']">
-        Дата рождения обязательна.
-      </div>
-      <div *ngIf="form.get('dateOfBirth')?.errors?.['minimumAge']">
-        Возраст должен быть не менее 
-        {{ form.get('dateOfBirth')?.errors?.['minimumAge'].requiredAge }} лет.
-        Ваш возраст: {{ form.get('dateOfBirth')?.errors?.['minimumAge'].actualAge }}.
-      </div>
-      <div *ngIf="form.get('dateOfBirth')?.errors?.['invalidDate']">
-        Неверная дата рождения.
-      </div>
-    </div>
-  </div>
-  
-  <!-- Телефон -->
-  <div class="form-group">
-    <label for="phone">Телефон</label>
-    <input id="phone" type="tel" formControlName="phone" class="form-control">
-    <div *ngIf="form.get('phone')?.touched && form.get('phone')?.errors" class="text-danger">
-      <div *ngIf="form.get('phone')?.errors?.['required']">
-        Телефон обязателен.
-      </div>
-      <div *ngIf="form.get('phone')?.errors?.['phoneFormat']">
-        Неверный формат номера телефона.
-      </div>
-    </div>
-  </div>
-  
-  <!-- Паспорт -->
-  <div class="form-group">
-    <label for="passport">Паспорт (серия и номер)</label>
-    <input id="passport" type="text" formControlName="passport" class="form-control">
-    <div *ngIf="form.get('passport')?.touched && form.get('passport')?.errors" class="text-danger">
-      <div *ngIf="form.get('passport')?.errors?.['required']">
-        Паспорт обязателен.
-      </div>
-      <div *ngIf="form.get('passport')?.errors?.['passportInvalid']">
-        Неверный формат паспорта (требуется 4 цифры и 6 цифр, например: "1234 567890").
-      </div>
-    </div>
-  </div>
-</div>
+        <!-- Пол -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Пол *</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="">Выберите пол</mat-option>
+            <mat-option *ngFor="let g of genders" [value]="g">
+              {{ g }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('gender')?.hasError('required')">
+            Пол обязателен.
+          </mat-error>
+        </mat-form-field>
 
-  
+        <!-- Дата рождения -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Дата рождения *</mat-label>
+          <input matInput type="date" formControlName="dateOfBirth" />
+          <mat-error *ngIf="form.get('dateOfBirth')?.hasError('required')">
+            Дата рождения обязательна.
+          </mat-error>
+          <mat-error *ngIf="form.get('dateOfBirth')?.hasError('minimumAge')">
+            Возраст должен быть не менее {{
+            form.get('dateOfBirth')?.errors?.['minimumAge'].requiredAge }} лет.
+          </mat-error>
+          <mat-error *ngIf="form.get('dateOfBirth')?.hasError('invalidDate')">
+            Неверная дата.
+          </mat-error>
+        </mat-form-field>
 
+        <!-- Телефон -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Телефон *</mat-label>
+          <input matInput type="tel" formControlName="phone" />
+          <mat-error *ngIf="form.get('phone')?.hasError('required')">
+            Телефон обязателен.
+          </mat-error>
+          <mat-error *ngIf="form.get('phone')?.hasError('phoneFormat')">
+            Неверный формат номера телефона.
+          </mat-error>
+        </mat-form-field>
 
+        <!-- Паспорт -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Паспорт *</mat-label>
+          <input
+            matInput
+            formControlName="passport"
+            placeholder="1234 567890"
+          />
+          <mat-error *ngIf="form.get('passport')?.hasError('required')">
+            Паспорт обязателен.
+          </mat-error>
+          <mat-error *ngIf="form.get('passport')?.hasError('passportInvalid')">
+            Неверный формат паспорта (требуется 4 цифры и 6 цифр).
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

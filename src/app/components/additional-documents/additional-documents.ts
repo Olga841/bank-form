@@ -1,40 +1,42 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   standalone: true,
   selector: 'app-additional-documents',
   templateUrl: './additional-documents.html',
   styleUrls: ['./additional-documents.scss'],
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule]
 })
 export class AdditionalDocumentsComponent implements OnInit {
   @Input() form!: FormArray;
-
+  
   ngOnInit(): void {
-    // Если в передаваемом FormArray ещё нет документов, добавляем один для начала
+    if (!this.form) {
+      throw new Error('AdditionalDocumentsComponent: FormArray input required');
+    }
+    // Если массив пуст – добавляем первый документ
     if (this.form.length === 0) {
       this.addDocument();
     }
   }
-
+  
   addDocument(): void {
-    const documentGroup = new FormGroup({
-      documentType: new FormControl('', Validators.required),
-      documentFile: new FormControl(null, Validators.required),
-      documentDescription: new FormControl('')
+    const docGroup = new FormGroup({
+      docName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      docNumber: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
-    this.form.push(documentGroup);
+    this.form.push(docGroup);
   }
-
+  
   removeDocument(index: number): void {
     this.form.removeAt(index);
-  }
-
-  // Геттер для безопасного приведения типа
-  get documentGroups(): FormGroup[] {
-    return this.form.controls as FormGroup[];
   }
 }

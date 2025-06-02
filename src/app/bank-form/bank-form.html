@@ -1,18 +1,23 @@
 <!-- bank-form.component.html -->
 <app-client-data [form]="clientDataForm"></app-client-data>
-<app-registration-address [form]="registrationAddressForm"></app-registration-address>
+<app-registration-address
+  [form]="registrationAddressForm"
+></app-registration-address>
 <app-bank-details [form]="bankDetailsForm"></app-bank-details>
 <app-transaction-info [form]="transactionInfoForm"></app-transaction-info>
-<app-additional-documents [form]="additionalDocumentsForm"></app-additional-documents>
+<app-additional-documents
+  [form]="additionalDocumentsForm"
+></app-additional-documents>
 
 <!-- Кнопка отправки будет активна только если форма валидна -->
-<button type="submit" class="btn btn-primary" [disabled]="transactionForm.invalid" (click)="onSubmit()">
-  Отправить
-</button>
-<button type="button" class="btn btn-warning" (click)="onReset()">
-  Очистить
-</button>
-
-
-
-
+<div class="action-buttons">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="transactionForm.invalid"
+    (click)="onSubmit()"
+  >
+    Отправить
+  </button>
+  <button mat-raised-button color="warn" (click)="onReset()">Очистить</button>
+</div>
