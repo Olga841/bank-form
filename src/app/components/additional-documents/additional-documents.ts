@@ -90,4 +90,9 @@ export class AdditionalDocumentsComponent implements OnInit {
   removeDocument(index: number): void {
     this.form.removeAt(index);
   }
+
+  get documentForms(): FormGroup[] {
+    return this.form.controls as FormGroup[];
+  }
+  
 }
