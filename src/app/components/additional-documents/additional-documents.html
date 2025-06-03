@@ -7,10 +7,10 @@
     <div *ngIf="form.length === 0">
       <p>Дополнительные документы не добавлены.</p>
     </div>
-    <div *ngFor="let doc of form.controls; let i = index">
+    <div *ngFor="let doc of documentForms; let i = index">
       <mat-card class="document-card">
         <mat-card-content>
-          <form [formGroup]="doc">
+          <form *ngIf="doc" [formGroup]="doc">
             <!-- Тип документа -->
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Тип документа *</mat-label>
