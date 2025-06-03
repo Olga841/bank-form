@@ -1,6 +1,6 @@
 
 export default {
-  basePath: 'https://olga841.github.io/bank-form',
+  basePath: '/bank-form',
   supportedLocales: {
   "en-US": ""
 },
