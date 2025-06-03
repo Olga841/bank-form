@@ -59,18 +59,23 @@ export class BankFormComponent implements OnInit {
   get additionalDocumentsForm(): FormArray {
     return this.transactionForm.get('additionalDocuments') as FormArray;
   }
+  
 
-  // Обработчик на отправку формы
+  //Обработчик на отправку формы
   onSubmit(): void {
+    
     // Если форма не валидна — помечаем все поля как "затронутые"
     if (this.transactionForm.invalid) {
       this.transactionForm.markAllAsTouched();
       return;
-    }
+    } 
     // Здесь можно отправить данные на сервер с помощью HttpClient.
     // Пока выводим данные в консоль для демонстрации:
     console.log('Отправленные данные:', this.transactionForm.value);
+   
   }
+
+  
 
   // Обработчик на очистку формы
   onReset(): void {

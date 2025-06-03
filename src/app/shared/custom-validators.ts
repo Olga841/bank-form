@@ -31,7 +31,7 @@ export class CustomValidators {
       }
       // Пример шаблона: допускаются числовые значения, пробелы, скобки, дефисы, плюс в начале  
       
-      const phoneRegex = /^[+]?[\d\s()-]{12,}$/;
+      const phoneRegex = /^\+7\d{3}\d{3}\d{2}\d{2}$/
       return phoneRegex.test(value) ? null : { phoneFormat: true };
     };
   }
@@ -45,7 +45,7 @@ export class CustomValidators {
       const value = control.value.trim();
       
       // Регулярное выражение: 2 латинские буквы (любого регистра), затем 6 цифр
-      const pattern = /^[A-Za-z]{2}\d{6}$/;
+      const pattern = /^\d{4}\s\d{6}$/;
       
       return pattern.test(value) ? null : { passportInvalid: true };
     };

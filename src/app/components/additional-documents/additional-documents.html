@@ -4,23 +4,49 @@
     <mat-card-title class="component-title">Дополнительные документы</mat-card-title>
   </div>
   <mat-card-content>
+    <div *ngIf="form.length === 0">
+      <p>Дополнительные документы не добавлены.</p>
+    </div>
     <div *ngFor="let doc of form.controls; let i = index">
       <mat-card class="document-card">
         <mat-card-content>
           <form [formGroup]="doc">
-            <!-- Название документа -->
+            <!-- Тип документа -->
             <mat-form-field appearance="fill" class="full-width">
-              <mat-label>Название документа *</mat-label>
-              <input matInput formControlName="docName" placeholder="Введите название документа">
-              <mat-error *ngIf="doc.get('docName')?.hasError('required')">Обязательное поле.</mat-error>
-              <mat-error *ngIf="doc.get('docName')?.hasError('minlength')">Минимум 2 символа.</mat-error>
+              <mat-label>Тип документа *</mat-label>
+              <mat-select formControlName="docType">
+                <mat-option value="">Выберите тип документа</mat-option>
+                <mat-option *ngFor="let type of documentTypes" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="doc.get('docType')?.hasError('required')">
+                Обязательное поле.
+              </mat-error>
             </mat-form-field>
+
             <!-- Номер документа -->
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Номер документа *</mat-label>
               <input matInput formControlName="docNumber" placeholder="Введите номер документа">
-              <mat-error *ngIf="doc.get('docNumber')?.hasError('required')">Обязательное поле.</mat-error>
-              <mat-error *ngIf="doc.get('docNumber')?.hasError('minlength')">Минимум 2 символа.</mat-error>
+              <mat-error *ngIf="doc.get('docNumber')?.hasError('required')">
+                Обязательное поле.
+              </mat-error>
+              <mat-error *ngIf="doc.get('docNumber')?.hasError('pattern')">
+                Номер должен содержать только цифры.
+              </mat-error>
+              <mat-error *ngIf="doc.hasError('docNumberLength')">
+                Длина должна быть {{ doc.getError('docNumberLength').requiredLength }} цифр, а введено {{ doc.getError('docNumberLength').actualLength }}.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Дата выдачи -->
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Дата выдачи *</mat-label>
+              <input matInput type="date" formControlName="issueDate">
+              <mat-error *ngIf="doc.get('issueDate')?.hasError('required')">
+                Обязательное поле.
+              </mat-error>
             </mat-form-field>
           </form>
           <button mat-icon-button color="warn" (click)="removeDocument(i)">
@@ -34,3 +60,4 @@
     </button>
   </mat-card-content>
 </mat-card>
+

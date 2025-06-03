@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdditionalDocuments } from './additional-documents';
+import { AdditionalDocumentsComponent } from './additional-documents';
 
 describe('AdditionalDocuments', () => {
-  let component: AdditionalDocuments;
-  let fixture: ComponentFixture<AdditionalDocuments>;
+  let component: AdditionalDocumentsComponent;
+  let fixture: ComponentFixture<AdditionalDocumentsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdditionalDocuments]
+      imports: [AdditionalDocumentsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdditionalDocuments);
+    fixture = TestBed.createComponent(AdditionalDocumentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

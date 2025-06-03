@@ -7,15 +7,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   standalone: true,
   selector: 'app-registration-address',
   templateUrl: './registration-address.html',
   styleUrls: ['./registration-address.scss'],
-  imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule]
+  imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSelectModule]
 })
 export class RegistrationAddressComponent implements OnInit {
+  countries: string[] = ['Беларусь', 'Россия', 'Украина', 'Польша'];
   @Input() form!: FormGroup;
   
   ngOnInit(): void {
@@ -48,6 +50,11 @@ export class RegistrationAddressComponent implements OnInit {
         Validators.pattern('^[0-9]{5}$')
       ]));
     }
+    
+    if (!this.form) {
+      throw new Error('RegistrationAddressComponent: input form required');
+    }
+    // При инициализации добавляем контрол для страны, если он отсутствует
     if (!this.form.contains('country')) {
       this.form.addControl('country', new FormControl('', Validators.required));
     }

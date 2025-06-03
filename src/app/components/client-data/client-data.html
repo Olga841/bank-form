@@ -96,13 +96,25 @@
           <input
             matInput
             formControlName="passport"
-            placeholder="AB 567890"
+            placeholder="1234 567890"
           />
           <mat-error *ngIf="form.get('passport')?.hasError('required')">
             Паспорт обязателен.
           </mat-error>
           <mat-error *ngIf="form.get('passport')?.hasError('passportInvalid')">
-            Неверный формат паспорта (требуется 2 буквы и 6 цифр).
+            Неверный формат паспорта (требуется 4 цифры пробел и 6 цифр).
+          </mat-error>
+        </mat-form-field>
+
+        <!-- E-mail -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>E-mail *</mat-label>
+          <input matInput formControlName="email" placeholder="Введите ваш E-mail">
+          <mat-error *ngIf="form.get('email')?.hasError('required')">
+            E-mail обязателен.
+          </mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('email')">
+            Некорректный формат E-mail.
           </mat-error>
         </mat-form-field>
       </div>

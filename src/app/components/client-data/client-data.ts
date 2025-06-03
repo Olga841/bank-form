@@ -103,5 +103,12 @@ export class ClientDataComponent implements OnInit {
         CustomValidators.passportValidator()
       ]));
     }
+    // Новое поле: E-mail – обязательное, формат email
+    if (!this.form.contains('email')) {
+      this.form.addControl('email', new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]));
+    }
   }
 }
